@@ -4,17 +4,9 @@
 - Donate link: -
 - Tags: widget, menus
 - Requires at least: 3.7
-
-
 - Tested up to: 4.4
-
-
-- Stable tag: 3.1
-
-
+- Stable tag: 3.2
 - License: GPLv2 or later
-
-
 - License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ## 插件功能
@@ -23,6 +15,8 @@
 
 1. 当前页面的子页面，或隶属于同一个父级页面的子页面。
 2. 关联到某个文章类型的自定义分类法项目
+
+注意：插件需要需要 PHP 5.4 以上的版本才能运行，建议使用 PHP 5.6
 
 联系方式：470266798@qq.com
 
@@ -38,10 +32,15 @@
 
 ## 更新日志
 
-### 3.0.1
+###  3.1 =
+
+- optimition code
+- add php require
+
+###  3.1 =
 
 - update readme.txt
 
-### 3.0
+###  3.0 =
 
 - The first released
