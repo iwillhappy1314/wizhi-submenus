@@ -3,7 +3,7 @@
 Plugin Name:        Wizhi Submenus
 Plugin URI:         http://www.wpzhiku.com/
 Description:        Display page`s subpage list and taxonomy terms list belongs to a post type
-Version:            3.2
+Version:            3.3
 Author:             WordPress 智库
 Author URI:         http://www.wpzhiku.com/
 License:            MIT License
