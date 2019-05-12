@@ -1,10 +1,10 @@
 === Plugin Name ===
 Contributors: iwillhappy1314
-Donate link:
+Donate link: 
 Tags: widget, menus
 Requires at least: 3.7
 Tested up to: 5.1
-Stable tag: 3.3
+Stable tag: 3.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -51,13 +51,18 @@ Screenshots is here：[http://www.wpzhiku.com/wizhi-submenus/](http://www.wpzhik
 
 == Changelog ==
 
+= 3.3.2 =
+* rest to 5.2
+
+= 3.3.2 =
+* add widget_nav_menu class to widget class
+
 = 3.3 =
+* add widget settings that allow user exclude taxonomy/term ids or post/page ids.
 
-* 代码优化、兼容性测试到最新版本
+= 3.2 =
 
-= 3.1 =
-
-* optimition code
+* optimization code
 
 = 3.1 =
 
@@ -66,3 +71,4 @@ Screenshots is here：[http://www.wpzhiku.com/wizhi-submenus/](http://www.wpzhik
 = 3.0 =
 
 * The first released
+

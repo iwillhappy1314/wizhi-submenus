@@ -1,116 +1,106 @@
-<?php if ( ! is_home() ) { ?>
+<?php
 
-	<?php
+if ( ! is_home() ) {
 	if ( is_page() ) {
 
 		$post = get_queried_object();
 
+		$args_posts = [
+			'title_li' => false,
+			'child_of' => $post->post_parent,
+			'exclude'  => $instance[ 'exclude_posts' ],
+			'echo'     => false,
+		];
+
 		if ( $post->post_parent ) {
-			$children = wp_list_pages( "title_li=&child_of=" . $post->post_parent . "&echo=0" );
+			$args_posts[ 'child_of' ] = $post->post_parent;
 		} else {
-			$children = wp_list_pages( "title_li=&child_of=" . $post->ID . "&echo=0" );
+			$args_posts[ 'child_of' ] = $post->ID;
 		}
+		
+		$children = wp_list_pages( $args_posts );
 
 		if ( $children ) {
+			echo $args[ 'before_widget' ];
 
-			echo $args[ 'before_title' ] . get_the_title( $post->post_parent ) . $args[ 'after_title' ]; ?>
+			echo $args[ 'before_title' ] . get_the_title( $post->post_parent ) . $args[ 'after_title' ];
 
-            <ul>
-				<?php echo $children; ?>
-            </ul>
+			echo '<ul>';
+			echo $children;
+			echo '</ul>';
 
-		<?php }
+			echo $args[ 'after_widget' ];
+
+		}
 
 	} else {
 
-		$taxonomy        = '';
-		$related_page_id = false;
-		$queried_object  = get_queried_object();
-		$post_type       = $queried_object->name;
+		$taxonomy = '';
 
-		if ( is_single() || is_singular() ) {
+		if ( is_single() ) {
 
-			$post_type  = $queried_object->post_type;
-			$taxonomies = array_values( get_object_taxonomies( $post_type, 'objects' ) );
+			global $post;
+			$queried_object = get_queried_object();
+			$post_type      = $post->post_type;
+			$taxonomies     = array_values( get_object_taxonomies( $post_type, 'objects' ) );
 
-			// 获取文章的分类方法
-			$terms     = wp_get_post_terms( $queried_object->ID, $taxonomies[ 0 ]->name );
-			$main_term = $terms[ 0 ];
-
-			// 获取分类法关联的页面
-			$related_page_id = get_term_meta( $main_term->term_id, '_related_page', true );
-			$related_page    = get_post( $related_page_id );
-
-			if ( $related_page_id ) {
-
-				// 父级页面为分类关联的父级页面的页面 ID
-				$children = wp_list_pages( "title_li=&child_of=" . $related_page->post_parent . "&echo=0" );
-
-				if ( $children ) {
-					echo $args[ 'before_title' ] . get_the_title( $related_page->post_parent ) . $args[ 'after_title' ]; ?>
-
-                    <ul>
-						<?php echo $children; ?>
-                    </ul>
-				<?php }
-
-			} else {
-				$taxonomy = $taxonomies[ 0 ]->name;
-			}
+			$taxonomy = $taxonomies[ 0 ]->name;
 
 		} elseif ( is_post_type_archive() ) {
 
-			$taxonomies = array_values( get_object_taxonomies( $post_type, 'objects' ) );
-			$taxonomy   = $taxonomies[ 0 ]->name;
+			$queried_object = get_queried_object();
+			$post_type      = $queried_object->name;
+			$taxonomies     = array_values( get_object_taxonomies( $post_type, 'objects' ) );
+
+			$taxonomy = $taxonomies[ 0 ]->name;
 
 		} else {
-			$taxonomy = $queried_object->taxonomy;
+
+			$queried_object = get_queried_object();
+			$taxonomy       = $queried_object->taxonomy;
 
 			if ( $taxonomy == 'post_tag' ) {
 				$taxonomy = null;
 			}
 
-			$terms = get_terms( [
-				'taxonomy'   => $taxonomy,
-				'hide_empty' => false,
-			] );
-
-			// 获取有关键的分类目录并排除
-			$exclude = collect( $terms )->filter( function ( $term ) {
-				return get_term_meta( $term->term_id, '_related_page', true );
-			} )->flatten()->toArray();
-
-			$exclude = $exclude[0]->term_id;
-
 		}
 
 		$args_tax = [
 			'taxonomy'     => $taxonomy,
-			'exclude'      => $exclude,
+			'exclude'      => $instance[ 'exclude_terms' ],
 			'show_count'   => 0,
 			'pad_counts'   => 0,
 			'hierarchical' => 0,
 			'title_li'     => '',
 		];
 
+		// 判断是否有自定义分类方法
+		$terms = false;
+		if ( $taxonomy ) {
+			$terms = get_terms( [
+				'taxonomy'   => $taxonomy,
+				'hide_empty' => false,
+			] );
+		}
+
 		$post_type       = get_post_type( get_the_ID() );
 		$post_type_obj   = get_post_type_object( $post_type );
 		$post_type_lable = $post_type_obj->labels->singular_name;
 
-		if ( ! is_tag() && ! $related_page_id ) {
-			echo $args[ 'before_title' ] . $post_type_lable . $args[ 'after_title' ];
+		if ( $taxonomy && $terms && ! is_wp_error( $terms ) ) {
+			echo $args[ 'before_widget' ];
+
+			if ( ! is_tag() ) {
+				echo $args[ 'before_title' ] . $post_type_lable . $args[ 'after_title' ];
+			}
+
+			echo '<ul>';
+			echo wp_list_categories( $args_tax );
+			echo '</ul>';
+
+			echo $args[ 'after_widget' ];
+
 		}
 
-		if ( ! $related_page_id ) {
-
-			?>
-
-            <ul>
-				<?php wp_list_categories( $args_tax ); ?>
-            </ul>
-
-		<?php }
-
-	} //end is_page ?>
-
-<?php } //end !is_home ?>
+	}
+}
