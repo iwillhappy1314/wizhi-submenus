@@ -3,7 +3,7 @@ Contributors: iwillhappy1314
 Donate link: 
 Tags: widget, menus
 Requires at least: 3.7
-Tested up to: 5.1
+Tested up to: 5.3
 Stable tag: 3.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,16 +14,12 @@ Display page`s subpage and taxonomy terms belongs to a post type in sidebar，�
 
 = For English user =
 
-Display page`s subpage and taxonomy terms belongs to a post type in sidebar。
-Contact：470266798@qq.com
+Display sub-pages or of current parent page; display sub-terms of current taxonomy terms belongs to the same post type in sidebar。
 
 Note：This plugin require php 5.4+, recommend use php 5.6
 
-
-= 中文用户 =
-
-在侧边栏显示某个页面的子页面列表或隶属于某个文章类型下面的自定义分类项目列表。
-联系方式：470266798@qq.com
+- 在侧边栏显示某个页面子页面，或同一个父级页面的同级页面列表
+- 或隶属于某个文章类型下面的自定义分类项目列表。
 
 注意：插件需要需要 PHP 5.4 以上的版本才能运行，建议使用 PHP 5.6
 
