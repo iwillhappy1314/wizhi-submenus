@@ -42,8 +42,8 @@ Note：This plugin require php 5.4+, recommend use php 5.6
 
 == Screenshots ==
 
-Screenshots is here：[http://www.wpzhiku.com/wizhi-submenus/](http://www.wpzhiku.com/wizhi-submenus/)
-
+1. 子页面菜单
+2. 文章类型下面的分类法菜单
 
 == Changelog ==
 = 3.3.5 =
