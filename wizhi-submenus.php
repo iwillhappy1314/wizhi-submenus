@@ -3,7 +3,7 @@
 Plugin Name:        Wizhi Submenus
 Plugin URI:         http://www.wpzhiku.com/
 Description:        Display page`s subpage list and taxonomy terms list belongs to a post type
-Version:            3.3.4
+Version:            3.3.5
 Author:             WordPress 智库
 Author URI:         http://www.wpzhiku.com/
 License:            MIT License
@@ -22,7 +22,7 @@ class wizhi_submenus extends WP_Widget
             'classname'   => 'widget_nav_menu widget_sub_menu',
             'description' => 'Display page`s subpage list and taxonomy terms list belongs to a post type',
         ];
-        parent::__construct(false, 'Wizhi Sidemenu', $widget_options);
+        parent::__construct(false, 'Wizhi Submenu', $widget_options);
     }
 
     /**
@@ -76,7 +76,7 @@ class wizhi_submenus extends WP_Widget
     }
 
 
-    function render_menu($args, $instance)
+    public function render_menu($args, $instance)
     {
         if ( ! is_home()) {
             if (is_page()) {
@@ -103,22 +103,20 @@ class wizhi_submenus extends WP_Widget
 
                     echo $args[ 'before_title' ] . get_the_title($post->post_parent) . $args[ 'after_title' ];
 
-                    echo '<ul>';
+                    echo '<ul class="rs-submenu__list">';
                     echo $children;
                     echo '</ul>';
 
                     echo $args[ 'after_widget' ];
-
                 }
 
             } else {
 
-                $taxonomy = '';
+                $post_type_label = '';
 
                 if (is_single()) {
 
                     global $post;
-                    $queried_object = get_queried_object();
                     $post_type      = $post->post_type;
                     $taxonomies     = array_values(get_object_taxonomies($post_type, 'objects'));
 
@@ -137,7 +135,7 @@ class wizhi_submenus extends WP_Widget
                     $queried_object = get_queried_object();
                     $taxonomy       = $queried_object->taxonomy;
 
-                    if ($taxonomy == 'post_tag') {
+                    if ($taxonomy === 'post_tag') {
                         $taxonomy = null;
                     }
 
@@ -161,18 +159,21 @@ class wizhi_submenus extends WP_Widget
                     ]);
                 }
 
-                $post_type       = get_post_type(get_the_ID());
-                $post_type_obj   = get_post_type_object($post_type);
-                $post_type_lable = $post_type_obj->labels->singular_name;
+                $post_type     = get_post_type(get_the_ID());
+                $post_type_obj = get_post_type_object($post_type);
+
+                if ($post_type_obj) {
+                    $post_type_label = $post_type_obj->labels->singular_name;
+                }
 
                 if ($taxonomy && $terms && ! is_wp_error($terms)) {
                     echo $args[ 'before_widget' ];
 
                     if ( ! is_tag()) {
-                        echo $args[ 'before_title' ] . $post_type_lable . $args[ 'after_title' ];
+                        echo $args[ 'before_title' ] . $post_type_label . $args[ 'after_title' ];
                     }
 
-                    echo '<ul>';
+                    echo '<ul class="rs-submenu__list">';
                     echo wp_list_categories($args_tax);
                     echo '</ul>';
 

@@ -3,8 +3,8 @@ Contributors: iwillhappy1314
 Donate link: 
 Tags: widget, menus
 Requires at least: 3.7
-Tested up to: 5.3
-Stable tag: 3.3.4
+Tested up to: 5.5
+Stable tag: 3.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
