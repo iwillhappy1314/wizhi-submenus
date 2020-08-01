@@ -46,9 +46,11 @@ Screenshots is here：[http://www.wpzhiku.com/wizhi-submenus/](http://www.wpzhik
 
 
 == Changelog ==
+= 3.3.5 =
+* test to 5.5
 
 = 3.3.2 =
-* rest to 5.2
+* test to 5.2
 
 = 3.3.2 =
 * add widget_nav_menu class to widget class
